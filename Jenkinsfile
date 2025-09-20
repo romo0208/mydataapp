@@ -127,6 +127,7 @@ pipeline {
                     // Небольшая пауза для стабилизации dashboard
                     sleep time: 15, unit: 'SECONDS'
                     sh 'cat /tmp/minikube-dashboard.log'
+                    sleep time: 900, unit: 'SECONDS'
                 }
             }
         }    
