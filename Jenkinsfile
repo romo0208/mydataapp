@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script {
                     echo "📦 Загрузка образа фронтенда в Minikube..."
-                    sh 'minikube image load frontend-app_frontend:latest --oveerwrite=true'
+                    sh 'minikube image load frontend-app_frontend:latest --overwrite=true'
                     echo "✅ Образ фронтенда загружен в Minikube."
                 }
             }
