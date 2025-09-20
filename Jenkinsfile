@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     echo "🔨 Сборка образа бэкенда..."
-                    dir('/mnt/c/dev/a_data/frontend-app/postgres-java-app') {
+                    dir('/mnt/c/dev/a_data/postgres-java-app') {
                         // --overwrite=true позволяет перезаписать существующий образ :cite[1]
                         sh 'minikube image build -t postgres-java-app_app:latest .'
                     }
