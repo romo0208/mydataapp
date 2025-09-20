@@ -110,6 +110,7 @@ pipeline {
                     
                     // Небольшая пауза для стабилизации tunnel
                     sleep time: 10, unit: 'SECONDS'
+                    sh 'cat /tmp/minikube-tunnel.log'
                 }
             }
         }
@@ -123,8 +124,9 @@ pipeline {
                     echo "✅ Minikube dashboard запущен. Логи в /tmp/minikube-dashboard.log:"
                     sh 'cat /tmp/minikube-dashboard.log'
                     
-                    // Небольшая пауза для стабилизации tunnel
-                    sleep time: 10, unit: 'SECONDS'
+                    // Небольшая пауза для стабилизации dashboard
+                    sleep time: 15, unit: 'SECONDS'
+                    sh 'cat /tmp/minikube-dashboard.log'
                 }
             }
         }    
