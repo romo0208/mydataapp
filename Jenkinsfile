@@ -22,15 +22,14 @@ pipeline {
 
         stage('Copy Files to Directory') {
             steps {
-                // Используем fileOperations для копирования всего содержимого workspace
-                fileOperations([
-                    folderCopyOperation(
-                        sourceFolderPath: '.',       // Копируем из текущего workspace Jenkins
-                        destinationFolderPath: '/mnt/c/dev/a_data' // Целевая директория
-                        // excludes: '**/*.log',     // Опционально: исключаем ненужные файлы по паттерну
-                        // flattenFiles: false       // Опционально: сохраняем структуру папок
-                    )
-                ])
+                sh '''
+                    # Создаем целевую директорию, если её нет
+                    mkdir -p /mnt/c/dev/a_data
+                    # Копируем содержимое workspace рекурсивно
+                    cp -R ./* /mnt/c/dev/a_data/
+                    # Или используем rsync для более гибкого копирования
+                    # rsync -av --delete ./ /mnt/c/dev/a_data/
+                '''
             }
         }
         
