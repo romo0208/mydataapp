@@ -51,7 +51,7 @@ pipeline {
                     echo "🔨 Сборка образа бэкенда..."
                     dir('/mnt/c/dev/a_data/frontend-app/postgres-java-app') {
                         // --overwrite=true позволяет перезаписать существующий образ :cite[1]
-                        sh 'minikube image build -t postgres-java-app_app:latest --overwrite=true .'
+                        sh 'minikube image build -t postgres-java-app_app:latest .'
                     }
                     echo "✅ Образ бэкенда успешно собран."
                 }
@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script {
                     echo "📦 Загрузка образа фронтенда в Minikube..."
-                    sh 'minikube image load frontend-app_frontend:latest'
+                    sh 'minikube image load frontend-app_frontend:latest --oveerwrite=true'
                     echo "✅ Образ фронтенда загружен в Minikube."
                 }
             }
@@ -113,6 +113,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Start minikube dashboard') {
+            steps {
+                script {
+                    echo "📦 Start minikube dashboard..."
+                    sh 'minikube dashboard'
+                    echo "✅ Minikube dashboard has started!"
+                }
+            }
+        }        
         
     }
     
