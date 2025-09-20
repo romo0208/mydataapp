@@ -26,8 +26,10 @@ pipeline {
                 script {
                     echo "🚀 Запуск Minikube с драйвером Docker..."
                     // --force используется для принудительного перезапуска, если кластер уже существует :cite[1]
-                    sh 'minikube start --driver=docker --force'
-                    echo "✅ Minikube успешно запущен."
+                    sh 'minikube start --driver=docker --force > /tmp/minikube.log 2>&1 &'
+                    echo "✅ Minikube успешно запущен. Логи в /tmp/minikube.log"
+                    sleep time: 15, unit: 'SECONDS'
+                    sh 'cat /tmp/minikube.log'
                 }
             }
         }
@@ -121,13 +123,10 @@ pipeline {
                     echo "🔗 Запуск Minikube dashboard для доступа к сервисам..."
                     // Запуск tunnel в фоновом режиме
                     sh 'nohup minikube dashboard > /tmp/minikube-dashboard.log 2>&1 &'
-                    echo "✅ Minikube dashboard запущен. Логи в /tmp/minikube-dashboard.log:"
-                    sh 'cat /tmp/minikube-dashboard.log'
-                    
+                    echo "✅ Minikube dashboard запущен. Логи в /tmp/minikube-dashboard.log:"                    
                     // Небольшая пауза для стабилизации dashboard
                     sleep time: 15, unit: 'SECONDS'
                     sh 'cat /tmp/minikube-dashboard.log'
-                    sleep time: 900, unit: 'SECONDS'
                 }
             }
         }    
