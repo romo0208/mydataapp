@@ -105,7 +105,7 @@ pipeline {
                 script {
                     echo "🔗 Запуск Minikube tunnel для доступа к сервисам..."
                     // Запуск tunnel в фоновом режиме :cite[5]
-                    sh 'nohup sudo minikube tunnel > /tmp/minikube-tunnel.log 2>&1 &'
+                    sh 'nohup minikube tunnel > /tmp/minikube-tunnel.log 2>&1 &'
                     echo "✅ Minikube tunnel запущен. Логи в /tmp/minikube-tunnel.log"
                     
                     // Небольшая пауза для стабилизации tunnel
