@@ -114,15 +114,20 @@ pipeline {
             }
         }
 
-        stage('Start minikube dashboard') {
+        stage('Start Minikube dashboard') {
             steps {
                 script {
-                    echo "📦 Start minikube dashboard..."
-                    sh 'minikube dashboard'
-                    echo "✅ Minikube dashboard has started!"
+                    echo "🔗 Запуск Minikube dashboard для доступа к сервисам..."
+                    // Запуск tunnel в фоновом режиме
+                    sh 'nohup minikube dashboard > /tmp/minikube-dashboard.log 2>&1 &'
+                    echo "✅ Minikube dashboard запущен. Логи в /tmp/minikube-dashboard.log:"
+                    sh 'cat /tmp/minikube-dashboard.log'
+                    
+                    // Небольшая пауза для стабилизации tunnel
+                    sleep time: 10, unit: 'SECONDS'
                 }
             }
-        }        
+        }    
         
     }
     
