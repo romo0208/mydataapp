@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/romo0208/mydataapp.git', branch: 'main'
+                git url: 'https://github.com/romo0208/mydataapp.git', branch: 'master'
             }
         }
         
