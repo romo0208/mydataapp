@@ -28,7 +28,7 @@ pipeline {
                     // --force используется для принудительного перезапуска, если кластер уже существует :cite[1]
                     sh 'nohup minikube start --driver=docker --force > /tmp/minikube.log 2>&1 &'
                     echo "✅ Minikube успешно запущен. Логи в /tmp/minikube.log"
-                    sleep time: 15, unit: 'SECONDS'
+                    sleep time: 45, unit: 'SECONDS'
                     sh 'cat /tmp/minikube.log'
                 }
             }
