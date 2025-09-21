@@ -26,7 +26,7 @@ pipeline {
                 script {
                     echo "🚀 Запуск Minikube с драйвером Docker..."
                     // --force используется для принудительного перезапуска, если кластер уже существует :cite[1]
-                    sh 'minikube start --driver=docker --force > /tmp/minikube.log 2>&1 &'
+                    sh 'nohup minikube start --driver=docker --force > /tmp/minikube.log 2>&1 &'
                     echo "✅ Minikube успешно запущен. Логи в /tmp/minikube.log"
                     sleep time: 15, unit: 'SECONDS'
                     sh 'cat /tmp/minikube.log'
@@ -102,36 +102,36 @@ pipeline {
             }
         }
         
-        stage('Start Minikube Tunnel') {
-            steps {
-                script {
-                    echo "🔗 Запуск Minikube tunnel для доступа к сервисам..."
-                    // Запуск tunnel в фоновом режиме :cite[5]
-                    sh 'nohup minikube tunnel > /tmp/minikube-tunnel.log 2>&1 &'
-                    echo "✅ Minikube tunnel запущен. Логи в /tmp/minikube-tunnel.log"
-                    
-                    // Небольшая пауза для стабилизации tunnel
-                    sleep time: 10, unit: 'SECONDS'
-                    sh 'cat /tmp/minikube-tunnel.log'
-                    sleep time: 900, unit: 'SECONDS'
-                }
-            }
-        }
-
-//        stage('Start Minikube dashboard') {
+//        stage('Start Minikube Tunnel') {
 //            steps {
 //                script {
-//                    echo "🔗 Запуск Minikube dashboard для доступа к сервисам..."
-//                    // Запуск tunnel в фоновом режиме
-//                    sh 'nohup minikube dashboard > /tmp/minikube-dashboard.log 2>&1 &'
-//                    echo "✅ Minikube dashboard запущен. Логи в /tmp/minikube-dashboard.log:"                    
-//                    // Небольшая пауза для стабилизации dashboard
-//                    sleep time: 15, unit: 'SECONDS'
-//                    sh 'cat /tmp/minikube-dashboard.log'
+//                    echo "🔗 Запуск Minikube tunnel для доступа к сервисам..."
+//                    // Запуск tunnel в фоновом режиме :cite[5]
+//                    sh 'nohup minikube tunnel > /tmp/minikube-tunnel.log 2>&1 &'
+//                    echo "✅ Minikube tunnel запущен. Логи в /tmp/minikube-tunnel.log"
+//                    
+//                    // Небольшая пауза для стабилизации tunnel
+//                    sleep time: 10, unit: 'SECONDS'
+//                    sh 'cat /tmp/minikube-tunnel.log'
+//                    sleep time: 900, unit: 'SECONDS'
 //                }
 //            }
-//        }    
-        
+//        }
+
+        stage('Start Minikube dashboard') {
+            steps {
+                script {
+                    echo "🔗 Запуск Minikube dashboard для доступа к сервисам..."
+                    // Запуск tunnel в фоновом режиме
+                    sh 'nohup minikube dashboard > /tmp/minikube-dashboard.log 2>&1 &'
+                    echo "✅ Minikube dashboard запущен. Логи в /tmp/minikube-dashboard.log:"                    
+                    // Небольшая пауза для стабилизации dashboard
+                    sleep time: 15, unit: 'SECONDS'
+                    sh 'cat /tmp/minikube-dashboard.log'
+                }
+            }
+        }    
+       
     }
     
     post {
