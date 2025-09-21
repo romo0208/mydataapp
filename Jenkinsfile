@@ -113,6 +113,7 @@ pipeline {
                     // Небольшая пауза для стабилизации tunnel
                     sleep time: 10, unit: 'SECONDS'
                     sh 'cat /tmp/minikube-tunnel.log'
+                    sleep time: 900, unit: 'SECONDS'
                 }
             }
         }
